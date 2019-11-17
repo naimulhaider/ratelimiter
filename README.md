@@ -30,14 +30,14 @@ redisStorage := ratelimiter.WithRedisStorage(redis.NewClient(
 rl := ratelimiter.New(rlConfig, ratelimiter.WithRedisStorage(redisStorage))
 ```
 
-######Direct Usage
+###### Direct Usage
 
 ```
 limiter := NewRateLimiter(10, time.Second, WithRedisStorage(redisClient))
 success, err := limiter.IsAllowed(td.Key)
 ```
 
-######Middleware
+###### Middleware
 
 ```
 limiter := NewRateLimiter(10, time.Second, WithRedisStorage(redisClient))
@@ -53,7 +53,7 @@ Redis operates on a single thread and instances of the services using this libra
 
 The rate limiting logic works as follows:
 
-######With Redis Storage:
+###### With Redis Storage:
 
 When `UseToken(key)` is called
 
@@ -62,7 +62,7 @@ A redis transaction is opened and operations are executed in a pipeline to ensur
 - If current tokens exceeds max token limit, `MaxCapacityError` is sent. Function returns false.
 - Tokens are incremented at the specified key. Function returns true.
 
-######With Local Storage:
+###### With Local Storage:
 
 When `UseToken(key)` is called
 
